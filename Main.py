@@ -1,11 +1,12 @@
 
+from sys import flags
 from tkinter import *
 import tkinter as tk
+from tkinter.messagebox import showwarning
 from PIL import Image, ImageTk
-from Register import App
-
-
-
+import Controller.DAO as Conn
+# import Menu
+import User_ID 
 
 class main(tk.Tk):
     def __init__(self):
@@ -13,7 +14,7 @@ class main(tk.Tk):
        
         self.title("Login")
 
-        self.iconbitmap('../assets/img/logo/logo.ico')
+        self.iconbitmap('assets/img/logo/logo.ico')
 
 
         window_width = 1000
@@ -40,12 +41,12 @@ class main(tk.Tk):
             
         canvas.place(x = 0, y = 0)
 
-        background_img = PhotoImage(file = f"../assets/img/login/background.png")
+        background_img = PhotoImage(file = f"assets/img/login/background.png")
         background = canvas.create_image(
             470, 300,
             image=background_img)
 
-        TextBox_ID_img = PhotoImage(file = '../assets/img/login/TextBox_ID.png')
+        TextBox_ID_img = PhotoImage(file = 'assets/img/login/TextBox_ID.png')
         TextBox_ID_bg = canvas.create_image(
             745, 260,
             image = TextBox_ID_img)
@@ -60,15 +61,34 @@ class main(tk.Tk):
             width = 350.0,
             height = 59)
         
-        def btn_clicked():
-            print("Button Clicked")
+        def Start_clicked():
+            input = Tb_ID.get()
+            if input == (""):
+                showwarning(title='Error',message='ID không được trống !')
+            else:
+                conn = Conn.connectDatabase()
+                cursor = conn.cursor()
+                sql = "select ID from user_ID where ID = {};".format(input)
+                #neu query toan bo ID thi de trong loop khong duoc vi no chi xet duoc 1 hang
+                #kieu tra ve cua sql la string ko so sanh voi int duoc nen phai so sanh ""
+                #
+                flag = True
+                for row in cursor.execute(sql):
+                    if row.ID != (""):
+                        flag = False
+                if flag == False:
+                    self.destroy()
+                    move = Menu.menu()   
+                else:
+                    showwarning(title='Error',message='ID không hợp lệ')
+                            # 
 
-        Button_Start = PhotoImage(file = f"../assets/img/login/Button_Start.png")
+        Button_Start = PhotoImage(file = f"assets/img/login/Button_Start.png")
         Bt_Start = Button(
             image = Button_Start,
             borderwidth = 0,
             highlightthickness = 0,
-            command = btn_clicked,
+            command = Start_clicked,
             relief = "flat")
 
         Bt_Start.place(
@@ -78,10 +98,9 @@ class main(tk.Tk):
 
         def btn_Register():
             self.destroy()
-            # Start = main()
-            thanh = App()  
+            move = User_ID.Register() 
 
-        Button_CreateID = PhotoImage(file = f"../assets/img/login/Button_CreateID.png")
+        Button_CreateID = PhotoImage(file = f"assets/img/login/Button_CreateID.png")
         Bt_CreateID = Button(
             image = Button_CreateID,
             borderwidth = 0,
@@ -94,12 +113,16 @@ class main(tk.Tk):
             width = 96,
             height = 16)
 
-        Button_Fogot = PhotoImage(file = f"../assets/img/login/Button_Fogot.png")
+        def Fogot_clicked():
+            self.destroy()
+            move = User_ID.Fogot() 
+
+        Button_Fogot = PhotoImage(file = f"assets/img/login/Button_Fogot.png")
         Bt_Fogot = Button(
             image = Button_Fogot,
             borderwidth = 0,
             highlightthickness = 0,
-            command = btn_clicked,
+            command = Fogot_clicked,
             relief = "flat")
 
         Bt_Fogot.place(
