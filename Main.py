@@ -133,4 +133,5 @@ class main(tk.Tk):
         self.resizable(False, False)
         self.mainloop()
 
-Start = main()
+if __name__=="__main__":
+    start = main()

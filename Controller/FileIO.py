@@ -36,6 +36,7 @@ def tinhtoan():
     file = open("Data_new.csv",mode="r",encoding="utf-8-sig")
     file_new = open("DataFinal.csv", mode="w",encoding="utf-8-sig")
     header = file.readline()
+    file_new.write(header.strip()+"\n")
     row = file.readline()
     flag = 0
     data1 = 0
@@ -62,6 +63,7 @@ def tinhtoan():
         c4 = float(row_list[4])
 
         if(flag <= 4):
+            # có thể dùng mảng global nhưng đọc ra nó cũng nhiều như vậy thôi nên dùng mảng local
             a = arr.array('d',[c1])
             b = arr.array('d',[c2])
             c = arr.array('d',[c3])
@@ -69,7 +71,7 @@ def tinhtoan():
             data1 = round(data1 + a[0],3) 
             data2 = round(data2 + b[0],3)
             data3 = round(data3 + c[0],3)
-            data4 = round(data4 + d[0],3)
+            data4 = round(((data1-data2) / data2) *100,3)
             
             # print("thanh dep trai") 
         elif(4 < flag <= 10):
@@ -81,8 +83,8 @@ def tinhtoan():
             data5 = round(data5 + a[0],3)
             data6 = round(data6 + b[0],3)
             data7 = round(data7 + c[0],3)
-            data8 = round(data8 + d[0],3)
-            print(data5)
+            data8 = round(((data5-data6) / data6) *100,3)
+            
         elif(10 < flag <=12):
             a = arr.array('d',[c1])
             b = arr.array('d',[c2])
@@ -92,7 +94,7 @@ def tinhtoan():
             data9 = round(data9 + a[0],3)
             data10 = round(data10 + b[0],3)
             data11 = round(data11 + c[0],3)
-            data12 = round(data12 + d[0],3)
+            data12 = round(((data9-data10) / data10) *100,3)
         else:
             a = arr.array('d',[c1])
             b = arr.array('d',[c2])
@@ -102,7 +104,7 @@ def tinhtoan():
             data13 = round(data13 + a[0],3)
             data14 = round(data14 + b[0],3)
             data15 = round(data15 + c[0],3)
-            data16 = round(data16 + d[0],3)
+            data16 = round(((data13-data14) / data14) *100,3)
 
 
         flag += 1
@@ -120,27 +122,11 @@ def tinhtoan():
     row_new3 = row.strip() + "Nợ phải trả" + "," + str(data9)+ "," + str(data10)+ "," + str(data11)+ "," + str(data12)+"\n" 
     file_new.write(row_new3)
 
-    row_new4 = row.strip() + "Nợ phải trả" + "," + str(data9-data13)+ "," + str(data10-data14)+ "," + str(data11-data15)+ "," + str(data12-data16)+"\n"  
+    row_new4 = row.strip() + "Tổng cộng nguồn vốn" + "," + str(data9+data13)+ "," + str(data10+data14)+ "," + str(data11+data15)+ "," + str(data12+data16)+"\n"  
     file_new.write(row_new4)  
 
 
         
-
-    # data = tai_san_ngan_han(row1,row2,row3,row4,row5)
-
-    # data1 = tai_san_dai_han(row6,row7,row8,row9,row10,row11)
-
-    # data2 = tong_cong_tai_san(data,data1)
-
-    # data3 = no_phai_tra(row12,row13)
-
-    # data4 = tong_nguon_von(row12,row13,row14)
-
-    # print(data)
-    # print(data1)
-    # print(data2)
-    # print(data3)
-    # print(data4)
     
 
     

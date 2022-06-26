@@ -1,14 +1,17 @@
-from cProfile import label
-from cgitb import text
-from distutils.command.upload import upload
+import matplotlib.pyplot as plt
+import pandas as pd
+from tkinter import filedialog
 from tkinter import *
 import tkinter as tk
 from tkinter.messagebox import showwarning
+
 from PIL import Image, ImageTk
 import Controller.DAO as Conn
 # import Menu
 # import User_ID 
-import tkinter.font as font
+# from Controller.FinancialLeverage import namhientai 
+import matplotlib.pyplot as plt
+import pandas as pd
 
 # def change_to_Home(self):
 #     self.forget()
@@ -23,6 +26,9 @@ import tkinter.font as font
 #     self.forget()
 #     go = C2Page()
 
+
+
+
 def center_window_on_screen(root):
 
     window_width = 1000
@@ -36,6 +42,9 @@ def center_window_on_screen(root):
 
     screen = (f'{window_width}x{window_height}+{center_x}+{center_y}')
     return screen
+
+
+
 
 class HomePage(tk.Tk):
     def __init__(self):
@@ -241,6 +250,81 @@ class C1Page(tk.Tk):
             x = 493, y =508,
             width = 221,
             height = 50)
+        
+        def Nhanxet_clicked():
+            return
+
+        Button_nhanxet = PhotoImage(file = f"assets/img/C1/Button_Nhanxet.png")
+        bt_nhanxet = Button(
+            image = Button_nhanxet,
+            borderwidth = 0,
+            highlightthickness = 0,
+            command = Nhanxet_clicked,
+            relief = "flat")
+
+        bt_nhanxet.place(
+            x = 230, y = 465,
+            width = 274,
+            height = 53)
+
+        def Namhientai_clicked():
+                plt.style.use('bmh')
+
+                df = pd.read_csv('Controller/DataFinal.csv')
+                x = df['TÀI SẢN']
+                y = df['2019']
+
+                #bar chart
+                plt.xlabel('TÀI SẢN',fontsize=18)
+                plt.xlabel('2019',fontsize=16)
+                plt.bar(x,y)
+
+                plt.show()
+
+        Button_Namhientai = PhotoImage(file = f"assets/img/C1/Button_Namhientai.png")
+        Bt_Namhientai = Button(
+            image = Button_Namhientai,
+            borderwidth = 0,
+            highlightthickness = 0,
+            command = Namhientai_clicked,
+            relief = "flat")
+
+        Bt_Namhientai.place(
+            x = 230, y = 139,
+            width = 274,
+            height = 50)
+
+        def Namtruoc_clicked():
+            return
+
+        Button_Namtruoc = PhotoImage(file = f"assets/img/C1/Button_Namtruoc.png")
+        bt_namtruoc = Button(
+            image = Button_Namtruoc,
+            borderwidth = 0,
+            highlightthickness = 0,
+            command = Namtruoc_clicked,
+            relief = "flat")
+
+        bt_namtruoc.place(
+            x = 230, y = 232,
+            width = 274,
+            height = 53)
+
+        def Sosanh_clicked():
+            return
+
+        Button_Sosanh = PhotoImage(file = f"assets/img/C1/Button_Sosanh.png")
+        bt_sosanh = Button(
+            image = Button_Sosanh,
+            borderwidth = 0,
+            highlightthickness = 0,
+            command = Sosanh_clicked,
+            relief = "flat")
+
+        bt_sosanh.place(
+            x = 230, y = 339,
+            width = 274,
+            height = 53)
 
         self.resizable(False, False)
         self.mainloop()
@@ -350,14 +434,53 @@ class Upload(tk.Tk):
         background = canvas.create_image(
             500, 302,
             image=background_img)
-        def btn_clicked():
-            print("Button Clicked")
+
+        label_showfile = Label(
+            bg="#E8E8E8"
+        )
+
+        label_showfile.place(
+            x=37, y=210,
+            width=486,height=258,
+        )
+
+        def Select_clicked():
+            filepath = filedialog.askopenfilename(initialdir = "/",
+										title = "Select a File",
+										filetypes = (("Text files",
+														"*.txt*"),
+													("all files",
+														"*.*")))
+            label_showfile.configure(text="File: "+filepath)
+            file = open(filepath,mode='r',encoding="utf-8-sig")
+            column = file.readline()
+            header = column.split(",")
+
+
+            This_year = header[0]
+            Last_year = header[1]
+
+            col_list = [This_year, Last_year,"year"]
+            df = pd.read_csv(filepath, usecols=col_list)
+            # this_year = df[This_year]
+            x = (df["year"]) 
+            y = (df[This_year]) 
+
+            plt.xlabel('Year',fontsize = 18)
+            plt.ylabel(This_year,fontsize = 16)
+            plt.bar(x,y)
+            # plt.show()
+            
+
+            file.close()
+             
+
         img0 = PhotoImage(file = f"assets/img/Upload/Button_Select.png")
         b0 = Button(
             image = img0,
             borderwidth = 0,
             highlightthickness = 0,
-            command = btn_clicked,
+            command = Select_clicked,
             relief = "flat")
 
         b0.place(
@@ -365,20 +488,33 @@ class Upload(tk.Tk):
             width = 159,
             height = 50)
 
+        def Continue_clicked():
+            self.destroy()
+            back = HomePage()
+
+
+
         img1 = PhotoImage(file = f"assets/img/Upload/Button_Continue.png")
         b1 = Button(
             image = img1,
             borderwidth = 0,
             highlightthickness = 0,
-            command = btn_clicked,
+            command = Continue_clicked,
             relief = "flat")
 
         b1.place(
             x = 763, y = 504,
             width = 159,
             height = 50)
+        
+
 
         self.resizable(False, False)
         self.mainloop()
 
-start = Upload()
+
+if __name__ == "__main__":
+    start = HomePage()
+
+    
+

@@ -1,25 +1,24 @@
 
 from tkinter import *
 import  tkinter as tk
-from tkinter import messagebox
 from tkinter.messagebox import showerror, showwarning, showinfo, askyesno
 import Controller.DAO as Conn
 
 import Main
 
-def center_window_on_screen(root):
+# def center_window_on_screen(root):
 
-    window_width = 1000
-    window_height = 600
+#     window_width = 500
+#     window_height = 450
 
-    screen_width = root.winfo_screenwidth()
-    screen_height = root.winfo_screenheight()
+#     screen_width = root.winfo_screenwidth()
+#     screen_height = root.winfo_screenheight()
 
-    center_x = int(screen_width/2 - window_width / 2)
-    center_y = int(screen_height/2 - window_height / 2)
+#     center_x = int(screen_width/2 - window_width / 2)
+#     center_y = int(screen_height/2 - window_height / 2)
 
-    screen = (f'{window_width}x{window_height}+{center_x}+{center_y}')
-    return screen
+#     screen = (f'{window_width}x{window_height}+{center_x}+{center_y}')
+#     return screen
 
 class Register(tk.Tk):
     def __init__(self):
@@ -28,9 +27,22 @@ class Register(tk.Tk):
 
         self.iconbitmap('assets/img/logo/logo.ico')
 
-        screen = center_window_on_screen(self)
-        data = "{}".format(screen)
-        self.geometry(data)
+        window_width = 450
+        window_height = 500
+
+        screen_width = self.winfo_screenwidth()
+        screen_height = self.winfo_screenheight()
+
+        center_x = int(screen_width/2 - window_width / 2)
+        center_y = int(screen_height/2 - window_height / 2)
+
+        self.geometry(f'{window_width}x{window_height}+{center_x}+{center_y}')
+
+        self.iconbitmap('assets/img/logo/logo.ico')
+
+        # screen = center_window_on_screen(self)
+        # data = "{}".format(screen)
+        # self.geometry(data)
 
         self.configure(bg = "#ffffff")
         canvas = Canvas(
@@ -170,9 +182,20 @@ class Fogot(tk.Tk):
 
         self.iconbitmap('assets/img/logo/logo.ico')
 
-        screen = center_window_on_screen(self)
-        data = "{}".format(screen)
-        self.geometry(data)
+        self.title("Sign Up")
+
+        self.iconbitmap('assets/img/logo/logo.ico')
+
+        window_width = 450
+        window_height = 500
+
+        screen_width = self.winfo_screenwidth()
+        screen_height = self.winfo_screenheight()
+
+        center_x = int(screen_width/2 - window_width / 2)
+        center_y = int(screen_height/2 - window_height / 2)
+
+        self.geometry(f'{window_width}x{window_height}+{center_x}+{center_y}')
         
         self.configure(bg = "#ffffff")
         canvas = Canvas(
@@ -260,7 +283,7 @@ class Fogot(tk.Tk):
         self.resizable(False, False)
         self.mainloop()
     
-thanh = Fogot()
+# thanh = Fogot()
 
 
 

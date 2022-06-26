@@ -1,122 +1,448 @@
-"""
-Author: Andy Wicks
-Code can be found at: https://lyw4.life/Resources/python.php
-Date started: Mon,  19 Oct 2020
-Version: 0.0
-Purposes:
-    - To explore how frames are swapped to create the 'many windows' effect.
-    Reference: https://tkdocs.com/tutorial/grid.html
-"""
-import tkinter as tk             # This has all the code for GUIs.
-import tkinter.font as font      # This lets us use different fonts.
+from email import header
+from inspect import Attribute
+from numpy import unicode_
+import pandas as pd
+from tkinter import filedialog
+from tkinter import *
+import tkinter as tk
+from tkinter.messagebox import showwarning
+from turtle import width
+from PIL import Image, ImageTk
+from requests import head
+import Controller.DAO as Conn
+# import Menu
+# import User_ID 
+import tkinter.font as font
+import array as arr
+
+# def change_to_Home(self):
+#     self.forget()
+#     # them pack sau
+#     go = HomePage()
+
+# def change_to_C1(self):
+#     self.forget()
+#     go = C1Page()
+
+# def change_to_C2(self):
+#     self.forget()
+#     go = C2Page()
 
 
-def center_window_on_screen():
-    """
-    This centres the window when it is not maximised.  It
-    uses the screen and window height and width variables
-    defined in the program below.
-    :return: Nothing
-    """
-    x_cord = int((screen_width/2) - (width/2))
-    y_cord = int((screen_height/2) - (height/2))
-    root.geometry("{}x{}+{}+{}".format(width, height, x_cord, y_cord))
+
+last_year = arr.array('q')
+this_year = arr.array('q')
+
+def center_window_on_screen(root):
+
+    window_width = 1000
+    window_height = 600
+
+    screen_width = root.winfo_screenwidth()
+    screen_height = root.winfo_screenheight()
+
+    center_x = int(screen_width/2 - window_width / 2)
+    center_y = int(screen_height/2 - window_height / 2)
+
+    screen = (f'{window_width}x{window_height}+{center_x}+{center_y}')
+    return screen
 
 
-def change_to_work():
-    """
-    This function swaps from the quiz
-    frame to the work frame.
-    :return: Nothing
-    """
-    quiz_frame.forget()
-    work_frame.pack(fill='both', expand=1)
 
 
-def change_to_quiz():
-    """
-    This function swaps from the work
-    frame to the quiz frame.
-    :return: Nothing
-    """
-    quiz_frame.pack(fill='both', expand=1)
-    work_frame.forget()
+class HomePage(tk.Tk):
+    def __init__(self):
+        super().__init__()
+
+        self.title("Menu")
+        self.iconbitmap('assets/img/logo/logo.ico')
+
+        screen = center_window_on_screen(self)
+        data = "{}".format(screen)
+        self.geometry(data)
+
+        self.configure(bg = "#ffffff")
+        canvas = Canvas(
+            self,
+            bg = "#ffffff",
+            height = 600,
+            width = 1000,
+            bd = 0,
+            highlightthickness = 0,
+            relief = "ridge")
+        canvas.place(x = 0, y = 0)
+
+        background_img = PhotoImage(file = f"assets/img/Menu/background.png")
+        background = canvas.create_image(
+            500, 300,
+            image=background_img)
+
+        def Home_clicked():
+            return
+
+        img_Home = PhotoImage(file = f"assets/img/Menu/Button_Home.png")
+        button_home = Button(
+            image = img_Home,
+            borderwidth = 0,
+            highlightthickness = 0,
+            command = Home_clicked,
+            relief = "flat")
+
+        button_home.place(
+            x = 0, y = 200,
+            width = 200,
+            height = 64)
+        
+        def C1_clicked():
+            self.destroy()
+            go = C1Page()
+
+        img_C1 = PhotoImage(file = f"assets/img/Option/Button_C1.png")
+        button_C1 = Button(
+            image = img_C1,
+            borderwidth = 0,
+            highlightthickness = 0,
+            command = C1_clicked,
+            relief = "flat")
+
+        button_C1.place(
+            x = -3, y = 264,
+            width = 207,
+            height = 64)
+
+        def C2_clicked():
+            self.destroy()
+            go = C2Page()
+
+        img_C2 = PhotoImage(file = f"assets/img/Option/Button_C2.png")
+        button_C2 = Button(
+            image = img_C2,
+            borderwidth = 0,
+            highlightthickness = 0,
+            command = C2_clicked,
+            relief = "flat")
+
+        button_C2.place(
+            x = -3, y = 328,
+            width = 207,
+            height = 64)
+
+        def Date_clicked():
+            print("Button Clicked")
+
+        img_Date = PhotoImage(file = f"assets/img/Menu/Button_Date.png")
+        button_Date = Button(
+            image = img_Date,
+            borderwidth=0,
+            highlightthickness=0,
+            command=Date_clicked,
+            relief = "flat"
+        )
+
+        button_Date.place(
+            x = 939, y=538,
+            width=40,
+            height=40
+        )
+        img_ID = PhotoImage(file = f"assets/img/Menu/1.png")
+        label_ID = Label(
+            image=img_ID,
+            highlightthickness=0,
+        )
+
+        label_ID.place(
+            x=650, y= 89,
+            width=170,
+            height=41
+        )
+        
+
+        self.resizable(False, False)
+        self.mainloop()
 
 
-# Now we get to the program itself:-
-# Let's set up the window ...
-root = tk.Tk()
-root.title("My Work - Swapping frames")
-root.configure(bg='lightyellow')
-# Set the icon used for your program
-root.iconphoto(True,
-               tk.PhotoImage(file='info.png'))
+class C1Page(tk.Tk):
+    def __init__(self):
+        super().__init__()
 
-width, height = 500, 400
-screen_width = root.winfo_screenwidth()
-screen_height = root.winfo_screenheight()
-center_window_on_screen()
+        self.title("Menu")
+        self.iconbitmap('assets/img/logo/logo.ico')
 
-# Here, we create two frames of which only
-# one will be visible at a time.
-quiz_frame = tk.Frame(root)
-work_frame = tk.Frame(root)
+        screen = center_window_on_screen(self)
+        data = "{}".format(screen)
+        self.geometry(data)
 
-# Let's create the fonts that we need.
-font_large = font.Font(family='Georgia',
-                       size='24',
-                       weight='bold')
-font_small = font.Font(family='Georgia',
-                       size='12')
+        self.configure(bg = "#ffffff")
+        canvas = Canvas(
+            self,
+            bg = "#ffffff",
+            height = 600,
+            width = 1000,
+            bd = 0,
+            highlightthickness = 0,
+            relief = "ridge")
+        canvas.place(x = 0, y = 0)
 
-# The widgets needed for the quiz frame.
-# First, let's display te logo.
-img_logo = tk.PhotoImage(file='logo.png')
-lbl_logo_quiz = tk.Label(quiz_frame,
-                         image=img_logo)
+        background_img = PhotoImage(file = f"assets/img/Option/background.png")
+        background = canvas.create_image(
+            500, 302,
+            image=background_img)
 
-# Next, comes the heading for this frame.
-lbl_heading_quiz = tk.Label(quiz_frame,
-                            text='This is the quiz frame',
-                            font=font_large)
-lbl_logo_quiz.pack(pady=20)
-lbl_heading_quiz.pack(pady=20)
+        def Home_clicked():
+            self.destroy()
+            go = HomePage()
 
-# And finally, the button to swap between the frames.
-btn_change_to_work = tk.Button(quiz_frame,
-                               text='Change to work',
-                               font=font_small,
-                               command=change_to_work)
-btn_change_to_work.pack(pady=20)
+        img0 = PhotoImage(file = f"assets/img/Option/Button_Home.png")
+        b0 = Button(
+            image = img0,
+            borderwidth = 0,
+            highlightthickness = 0,
+            command = Home_clicked,
+            relief = "flat")
 
-# The widgets needed for the work frame.
-# These are only being used in this example
-# to show that both frames are working as
-# expected.
+        b0.place(
+            x = 0, y = 200,
+            width = 200,
+            height = 64)
 
-# First the image gets added.
-lbl_logo_work = tk.Label(work_frame,
-                         image=img_logo)
-lbl_logo_work.pack(pady=20)
+        def C1_clicked():
+            return
 
-# Next, we'll add a heading.
-lbl_heading_work = tk.Label(work_frame,
-                            text='This is the WORK frame',
-                            font=font_large)
-lbl_heading_work.pack(pady=20)
+        img1 = PhotoImage(file = f"assets/img/C1/Button_C1.png")
+        b1 = Button(
+            image = img1,
+            borderwidth = 0,
+            highlightthickness = 0,
+            command = C1_clicked,
+            relief = "flat")
 
-# Finally, we need the button to
-# swap back to the quiz frame.
-btn_change_to_quiz = tk.Button(work_frame,
-                               font=font_small,
-                               text='Change to quiz',
-                               command=change_to_quiz)
-btn_change_to_quiz.pack(pady=20)
+        b1.place(
+            x = -3, y = 264,
+            width = 207,
+            height = 64)
 
-# Only the quiz frame needs to be shown
-# when the program starts.  The work frame
-# will only appear when the Change button
-# is clicked.
-quiz_frame.pack(fill='both', expand=1)
+        def C2_clicked():
+            self.destroy()
+            go = C2Page()
 
-root.mainloop()
+        img2 = PhotoImage(file = f"assets/img/Option/Button_C2.png")
+        b2 = Button(
+            image = img2,
+            borderwidth = 0,
+            highlightthickness = 0,
+            command = C2_clicked,
+            relief = "flat")
+
+        b2.place(
+            x = -3, y = 328,
+            width = 207,
+            height = 64)
+        
+        def Upload_clicked():
+            self.destroy()
+            go = Upload()
+
+        img3 = PhotoImage(file = f"assets/img/C1/Button_Upload.png")
+        b3 = Button(
+            image = img3,
+            borderwidth = 0,
+            highlightthickness = 0,
+            command = Upload_clicked,
+            relief = "flat")
+
+        b3.place(
+            x = 493, y =508,
+            width = 221,
+            height = 50)
+
+        self.resizable(False, False)
+        self.mainloop()
+
+
+class C2Page(tk.Tk):
+    def __init__(self):
+        super().__init__()
+
+        self.title("Menu")
+        self.iconbitmap('assets/img/logo/logo.ico')
+
+        screen = center_window_on_screen(self)
+        data = "{}".format(screen)
+        self.geometry(data)
+
+        self.configure(bg = "#ffffff")
+        canvas = Canvas(
+            self,
+            bg = "#ffffff",
+            height = 600,
+            width = 1000,
+            bd = 0,
+            highlightthickness = 0,
+            relief = "ridge")
+        canvas.place(x = 0, y = 0)
+
+        background_img = PhotoImage(file = f"assets/img/Option/background.png")
+        background = canvas.create_image(
+            500, 302,
+            image=background_img)
+
+        def Home_clicked():
+            self.destroy()
+            go = HomePage()
+
+        img0 = PhotoImage(file = f"assets/img/Option/Button_Home.png")
+        b0 = Button(
+            image = img0,
+            borderwidth = 0,
+            highlightthickness = 0,
+            command = Home_clicked,
+            relief = "flat")
+
+        b0.place(
+            x = 0, y = 200,
+            width = 200,
+            height = 64)
+
+        def C1_clicked():
+            self.destroy()
+            go = C1Page()
+
+        img1 = PhotoImage(file = f"assets/img/Option/Button_C1.png")
+        b1 = Button(
+            image = img1,
+            borderwidth = 0,
+            highlightthickness = 0,
+            command = C1_clicked,
+            relief = "flat")
+
+        b1.place(
+            x = -3, y = 264,
+            width = 207,
+            height = 64)
+
+        def C2_clicked():
+            return
+        img2 = PhotoImage(file = f"assets/img/C2/Button_C2.png")
+        b2 = Button(
+            image = img2,
+            borderwidth = 0,
+            highlightthickness = 0,
+            command = C2_clicked,
+            relief = "flat")
+
+        b2.place(
+            x = -3, y = 328,
+            width = 207,
+            height = 64)
+
+        self.resizable(False, False)
+        self.mainloop()
+
+class Upload(tk.Tk):
+    def __init__(self):
+        super().__init__()
+
+        self.title("Menu")
+        self.iconbitmap('assets/img/logo/logo.ico')
+
+        screen = center_window_on_screen(self)
+        data = "{}".format(screen)
+        self.geometry(data)
+
+        canvas = Canvas(
+            self,
+            bg = "#ffffff",
+            height = 600,
+            width = 1000,
+            bd = 0,
+            highlightthickness = 0,
+            relief = "ridge")
+        canvas.place(x = 0, y = 0)
+
+        background_img = PhotoImage(file = f"assets/img/Upload/background.png")
+        background = canvas.create_image(
+            500, 302,
+            image=background_img)
+
+        label_showfile = Label(
+            bg="#E8E8E8"
+        )
+
+        label_showfile.place(
+            x=37, y=210,
+            width=486,height=258,
+        )
+
+        def Select_clicked():
+            filepath = filedialog.askopenfilename(initialdir = "/",
+										title = "Select a File",
+										filetypes = (("Text files",
+														"*.txt*"),
+													("all files",
+														"*.*")))
+            label_showfile.configure(text="File: "+filepath)
+            file = open(filepath,mode='r',encoding="utf-8-sig")
+            column = file.readline()
+            header = column.split(",")
+
+            This_year = header[0]
+            Last_year = header[1]
+
+            col_list = [This_year, Last_year]
+            df = pd.read_csv(filepath, usecols=col_list)
+            # this_year = df[This_year]
+            last_year = df[Last_year] 
+            for x in df:
+                this_year.insert(x,df)
+
+            for x in this_year:
+                print(x)
+
+            file.close()
+             
+         
+
+
+        img0 = PhotoImage(file = f"assets/img/Upload/Button_Select.png")
+        b0 = Button(
+            image = img0,
+            borderwidth = 0,
+            highlightthickness = 0,
+            command = Select_clicked,
+            relief = "flat")
+
+        b0.place(
+            x = 181, y = 504,
+            width = 159,
+            height = 50)
+
+        def Continue_clicked():
+            for x in this_year:
+                print(x)
+
+
+
+        img1 = PhotoImage(file = f"assets/img/Upload/Button_Continue.png")
+        b1 = Button(
+            image = img1,
+            borderwidth = 0,
+            highlightthickness = 0,
+            command = Continue_clicked,
+            relief = "flat")
+
+        b1.place(
+            x = 763, y = 504,
+            width = 159,
+            height = 50)
+        
+
+
+        self.resizable(False, False)
+        self.mainloop()
+
+
+if __name__ == "__main__":
+    start = Upload()
+
+    
+
