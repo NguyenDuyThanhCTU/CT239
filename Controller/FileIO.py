@@ -114,12 +114,14 @@ def tinhtoan(self):
     row_new1 = row.strip() + "Tài sản dài hạn" + "," + str(data5)+ "," + str(data6)+ "," + str(data7)+ "," + str(data8)+"\n"
     file_new.write(row_new1)
 
-    row_new2 = row.strip() + "Tổng cộng tài sản" + "," + str(data5+data1)+ "," + str(data6+data2)+ "," + str(data7+data3)+ "," + str(data8+data4)+"\n"
+    temp1 = round((((data5+data1)-(data6+data2)) / (data6+data2)) *100,3)
+    row_new2 = row.strip() + "Tổng cộng tài sản" + "," + str(data5+data1)+ "," + str(data6+data2)+ "," + str(data7+data3)+ "," + str(temp1)+"\n"
     file_new.write(row_new2)
 
     row_new3 = row.strip() + "Nợ phải trả" + "," + str(data9)+ "," + str(data10)+ "," + str(data11)+ "," + str(data12)+"\n" 
     file_new.write(row_new3)
 
+    temp2 = round((((data9+data13)-(data10+data14)) / (data10+data14)) *100,3)
     row_new4 = row.strip() + "Tổng cộng nguồn vốn" + "," + str(data9+data13)+ "," + str(data10+data14)+ "," + str(data11+data15)+ "," + str(data12+data16)+"\n"  
     file_new.write(row_new4)  
 
