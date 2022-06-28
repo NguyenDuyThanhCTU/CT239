@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import pandas as pd
+import array as arr
 from tkinter import filedialog
 from tkinter import *
 import tkinter as tk
@@ -9,7 +10,8 @@ from PIL import Image, ImageTk
 import Controller.DAO as Conn
 # import Menu
 # import User_ID 
-# from Controller.FinancialLeverage import namhientai 
+from Controller.FinancialLeverage import namhientai 
+from Controller.fileIO import *
 import matplotlib.pyplot as plt
 import pandas as pd
 
@@ -268,18 +270,19 @@ class C1Page(tk.Tk):
             height = 53)
 
         def Namhientai_clicked():
-                plt.style.use('bmh')
+            namhientai('Controller/DataFinal.csv')
+                # plt.style.use('bmh')
 
-                df = pd.read_csv('Controller/DataFinal.csv')
-                x = df['TÀI SẢN']
-                y = df['2019']
+                # df = pd.read_csv('Controller/DataFinal.csv')
+                # x = df['TÀI SẢN']
+                # y = df['2019']
 
-                #bar chart
-                plt.xlabel('TÀI SẢN',fontsize=18)
-                plt.xlabel('2019',fontsize=16)
-                plt.bar(x,y)
+                # #bar chart
+                # plt.xlabel('TÀI SẢN',fontsize=18)
+                # plt.xlabel('2019',fontsize=16)
+                # plt.bar(x,y)
 
-                plt.show()
+                # plt.show()
 
         Button_Namhientai = PhotoImage(file = f"assets/img/C1/Button_Namhientai.png")
         Bt_Namhientai = Button(
@@ -452,27 +455,12 @@ class Upload(tk.Tk):
 													("all files",
 														"*.*")))
             label_showfile.configure(text="File: "+filepath)
-            file = open(filepath,mode='r',encoding="utf-8-sig")
-            column = file.readline()
-            header = column.split(",")
+            createNewExcelFile(filepath)
+            tinhtoan('Data/Data_new.csv')
 
-
-            This_year = header[0]
-            Last_year = header[1]
-
-            col_list = [This_year, Last_year,"year"]
-            df = pd.read_csv(filepath, usecols=col_list)
-            # this_year = df[This_year]
-            x = (df["year"]) 
-            y = (df[This_year]) 
-
-            plt.xlabel('Year',fontsize = 18)
-            plt.ylabel(This_year,fontsize = 16)
-            plt.bar(x,y)
-            # plt.show()
             
 
-            file.close()
+
              
 
         img0 = PhotoImage(file = f"assets/img/Upload/Button_Select.png")

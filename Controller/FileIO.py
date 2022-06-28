@@ -1,13 +1,11 @@
 from numpy import number
-from FinancialLeverage import *
 import array as arr
 
-def createNewExcelFile():
-    file = open("Data.csv",mode="r",encoding="utf-8-sig")
-    file_new = open("Data_new.csv", mode="w",encoding="utf-8-sig")
+def createNewExcelFile(self):
+    file = open(self,mode="r",encoding="utf-8-sig")
+    file_new = open("Data/Data_new.csv", mode="w",encoding="utf-8-sig")
 
     header = file.readline()
-
     file_new.write(header.strip() + ",Chênh lệch" + ",Phần trăm\n")
 
     row = file.readline()
@@ -32,9 +30,9 @@ def createNewExcelFile():
     file_new.close()
 
 
-def tinhtoan():
-    file = open("Data_new.csv",mode="r",encoding="utf-8-sig")
-    file_new = open("DataFinal.csv", mode="w",encoding="utf-8-sig")
+def tinhtoan(self):
+    file = open(self,mode="r",encoding="utf-8-sig")
+    file_new = open("Data/DataFinal.csv", mode="w",encoding="utf-8-sig")
     header = file.readline()
     file_new.write(header.strip()+"\n")
     row = file.readline()
@@ -57,17 +55,17 @@ def tinhtoan():
     data16 = 0
     while row != "":
         row_list = row.split(",")
-        c1 = int(row_list[1])
-        c2 = int(row_list[2])
+        c1 = float(row_list[1])
+        c2 = float(row_list[2])
         c3 = float(row_list[3])
-        c4 = float(row_list[4])
+        
 
         if(flag <= 4):
             # có thể dùng mảng global nhưng đọc ra nó cũng nhiều như vậy thôi nên dùng mảng local
             a = arr.array('d',[c1])
             b = arr.array('d',[c2])
             c = arr.array('d',[c3])
-            d = arr.array('d',[c4])
+            
             data1 = round(data1 + a[0],3) 
             data2 = round(data2 + b[0],3)
             data3 = round(data3 + c[0],3)
@@ -78,7 +76,7 @@ def tinhtoan():
             a = arr.array('d',[c1])
             b = arr.array('d',[c2])
             c = arr.array('d',[c3])
-            d = arr.array('d',[c4])
+            
 
             data5 = round(data5 + a[0],3)
             data6 = round(data6 + b[0],3)
@@ -89,7 +87,7 @@ def tinhtoan():
             a = arr.array('d',[c1])
             b = arr.array('d',[c2])
             c = arr.array('d',[c3])
-            d = arr.array('d',[c4])
+            
 
             data9 = round(data9 + a[0],3)
             data10 = round(data10 + b[0],3)
@@ -99,7 +97,7 @@ def tinhtoan():
             a = arr.array('d',[c1])
             b = arr.array('d',[c2])
             c = arr.array('d',[c3])
-            d = arr.array('d',[c4])
+            
 
             data13 = round(data13 + a[0],3)
             data14 = round(data14 + b[0],3)
@@ -134,6 +132,6 @@ def tinhtoan():
     
     
 
-if __name__ == "__main__":
-    start = tinhtoan()
+# if __name__ == "__main__":
+#     start = createNewExcelFile()
 
