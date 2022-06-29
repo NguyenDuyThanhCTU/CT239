@@ -1,16 +1,15 @@
-import matplotlib.pyplot as plt
-import pandas as pd
-import array as arr
+
 from tkinter import filedialog
 from tkinter import *
 import tkinter as tk
 from tkinter.messagebox import showwarning
 
 from PIL import Image, ImageTk
+from numpy import size
 import Controller.DAO as Conn
 # import Menu
 # import User_ID 
-from Controller.FinancialLeverage import namhientai 
+from Controller.FinancialLeverage import * 
 from Controller.fileIO import *
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -158,6 +157,106 @@ class HomePage(tk.Tk):
         self.resizable(False, False)
         self.mainloop()
 
+class Nhanxet(tk.Tk):
+    def __init__(self):
+        super().__init__()
+        
+        self.title("Menu")
+        self.iconbitmap('assets/img/logo/logo.ico')
+
+        screen = center_window_on_screen(self)
+        data = "{}".format(screen)
+        self.geometry(data)
+        
+        self.configure(bg = "#ffffff")
+        canvas = Canvas(
+            self,
+            bg = "#ffffff",
+            height = 600,
+            width = 1000,
+            bd = 0,
+            highlightthickness = 0,
+            relief = "ridge")
+        canvas.place(x = 0, y = 0)
+
+        background_img = PhotoImage(file = f"assets/img/Nhanxet/background.png")
+        background = canvas.create_image(
+            500, 302,
+            image=background_img)
+
+        def Exit_clicked():
+            self.destroy()
+            start = HomePage()
+
+        img0 = PhotoImage(file = f"assets/img/Nhanxet/Button_Exit.png")
+        b0 = Button(
+            image = img0,
+            borderwidth = 0,
+            highlightthickness = 0,
+            command = Exit_clicked,
+            relief = "flat")
+
+        b0.place(
+            x = 817, y = 516,
+            width = 159,
+            height = 50)
+            
+        # df = pd.read_csv(self)
+        # df.head()
+
+        label1 = Label(
+            bg="#E8E8E8",
+            anchor=CENTER,
+            # fontsize = 50
+        )
+
+        label1.place(
+            x=28, y=100,
+            width=580,height=450,
+        )
+        # label1.configure(text="File: ")
+
+        def thisyear_clicked():
+            TSNN = "Năm 2020 tăng 564 tỷ (11,48%) so với Tài sản ngắn hạn năm 2019"
+            TongCongtaisan = "Năm 2020 tăng 417 tỷ tương đương 3,49 % so với với năm 2019"
+            TongNguonVon = "Năm 2020 tổng nguồn vốn tăng 417 tỷ (3,49%) so với 2019"
+            NoPhaiTra = "Năm 2020 nợ phải trả tăng 874 tỷ (23,15%)"
+            TSDH = "Năm 2020 giảm -147 tỷ (-2.094%) so với Tài sản dài hạn năm 2019"
+
+            label1.configure(text=TSNN+"\n"+TSDH+"\n"+ TongCongtaisan+"\n"+NoPhaiTra+"\n"+TongNguonVon)
+
+        Button_thisyear = PhotoImage(file = f"assets/img/Nhanxet/Button_thisyear.png")
+
+        bt_thisyear = Button(
+            image = Button_thisyear,
+            borderwidth = 0,
+            highlightthickness = 0,
+            command = thisyear_clicked,
+            relief = "flat")
+
+        bt_thisyear.place(
+            x = 634, y = 90,
+            width = 254,
+            height = 50)
+
+        def lastyear_clicked():
+            return
+
+        Button_lastyear = PhotoImage(file = f"assets/img/Nhanxet/Button_lastyear.png")
+        bt_lastyear = Button(
+            image = Button_lastyear,
+            borderwidth = 0,
+            highlightthickness = 0,
+            command = lastyear_clicked,
+            relief = "flat")
+
+        bt_lastyear.place(
+            x = 634, y = 182,
+            width = 254,
+            height = 50)
+
+        self.resizable(False, False)
+        self.mainloop()
 
 class C1Page(tk.Tk):
     def __init__(self):
@@ -254,7 +353,8 @@ class C1Page(tk.Tk):
             height = 50)
         
         def Nhanxet_clicked():
-            return
+            self.destroy()
+            go = Nhanxet()
 
         Button_nhanxet = PhotoImage(file = f"assets/img/C1/Button_Nhanxet.png")
         bt_nhanxet = Button(
@@ -270,7 +370,7 @@ class C1Page(tk.Tk):
             height = 53)
 
         def Namhientai_clicked():
-            namhientai('Controller/DataFinal.csv')
+            namhientai('Data/DataFinal.csv')
                 # plt.style.use('bmh')
 
                 # df = pd.read_csv('Controller/DataFinal.csv')
@@ -298,7 +398,7 @@ class C1Page(tk.Tk):
             height = 50)
 
         def Namtruoc_clicked():
-            return
+            namtruoc('Data/DataFinal.csv')
 
         Button_Namtruoc = PhotoImage(file = f"assets/img/C1/Button_Namtruoc.png")
         bt_namtruoc = Button(
@@ -314,7 +414,7 @@ class C1Page(tk.Tk):
             height = 53)
 
         def Sosanh_clicked():
-            return
+            sosanh('Data/DataFinal.csv')
 
         Button_Sosanh = PhotoImage(file = f"assets/img/C1/Button_Sosanh.png")
         bt_sosanh = Button(

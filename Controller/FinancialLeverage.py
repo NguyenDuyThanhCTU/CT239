@@ -1,5 +1,6 @@
 from cProfile import label
 from tkinter import *
+import tkinter as tk
 import matplotlib
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -71,18 +72,65 @@ def sosanh(self):
     plt.title('tittle')
     plt.show()
 
-def nhanxet(self):
-    df = pd.read_csv(self)
-    df.head()
-    label_showfile = Label(
-        bg="#E8E8E8"
-    )
 
-    label_showfile.place(
-        x=37, y=210,
-        width=486,height=258,
-    )
-    label_showfile.configure(text="File: ")
 
-if __name__ == "__main__":
-    start = nhanxet('../Data/DataFinal.csv')
+
+
+# def center_window_on_screen(root):
+#     window_width = 1000
+#     window_height = 600
+
+#     screen_width = root.winfo_screenwidth()
+#     screen_height = root.winfo_screenheight()
+
+#     center_x = int(screen_width/2 - window_width / 2)
+#     center_y = int(screen_height/2 - window_height / 2)
+
+#     screen = (f'{window_width}x{window_height}+{center_x}+{center_y}')
+#     return screen
+
+
+# class Nhanxet(tk.Tk):
+#     def __init__(self):
+#         super().__init__()
+#         self.title("Menu")
+#         self.iconbitmap('../assets/img/logo/logo.ico')
+
+#         screen = center_window_on_screen(self)
+#         data = "{}".format(screen)
+#         self.geometry(data)
+        
+#         self.configure(bg = "#ffffff")
+#         canvas = Canvas(
+#             self,
+#             bg = "#ffffff",
+#             height = 600,
+#             width = 1000,
+#             bd = 0,
+#             highlightthickness = 0,
+#             relief = "ridge")
+#         canvas.place(x = 0, y = 0)
+
+#         background_img = PhotoImage(file = f"../assets/img/Nhanxet/background.png")
+#         background = canvas.create_image(
+#             0.0, 5.5,
+#             image=background_img)
+            
+#         df = pd.read_csv(self)
+#         df.head()
+#         label_showfile = Label(
+#             bg="#E8E8E8"
+#         )
+
+#         label_showfile.place(
+#             x=37, y=210,
+#             width=486,height=258,
+#         )
+#         label_showfile.configure(text="File: ")
+
+#         self.resizable(False, False)
+#         self.mainloop()
+
+# # if __name__ == "__main__":
+# Nhanxet()
+#     start = Nhanxet()
