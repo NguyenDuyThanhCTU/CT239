@@ -3,7 +3,7 @@ from tkinter import filedialog
 from tkinter import *
 import tkinter as tk
 from tkinter.messagebox import showwarning
-
+from tkinter.messagebox import *
 from PIL import Image, ImageTk
 from numpy import size
 import Controller.DAO as Conn
@@ -34,6 +34,20 @@ def center_window_on_screen(root):
 
     window_width = 1000
     window_height = 600
+
+    screen_width = root.winfo_screenwidth()
+    screen_height = root.winfo_screenheight()
+
+    center_x = int(screen_width/2 - window_width / 2)
+    center_y = int(screen_height/2 - window_height / 2)
+
+    screen = (f'{window_width}x{window_height}+{center_x}+{center_y}')
+    return screen
+
+def center_window_on_screen1(root):
+
+    window_width = 300
+    window_height = 100
 
     screen_width = root.winfo_screenwidth()
     screen_height = root.winfo_screenheight()
@@ -217,8 +231,21 @@ class Nhanxet(tk.Tk):
         # label1.configure(text="File: ")
 
         def thisyear_clicked():
+            file = open("Data/DataFinal.csv",mode="r",encoding="utf-8-sig")
+
+            header = file.readline()
+            row = file.readline()
+
+            while row != "":
+                row_list = row.split(",")
+                c1 = float(row_list[3])
+                c2 = float(row_list[4])
+
+                row = file.readline()
+
+            file.close()
             TSNN = "Năm 2020 tăng 564 tỷ (11,48%) so với Tài sản ngắn hạn năm 2019"
-            TongCongtaisan = "Năm 2020 tăng 417 tỷ tương đương 3,49 % so với với năm 2019"
+            TongCongtaisan = "Năm 2020 tăng 417 tỷ tương đương (3,49%) so với với năm 2019"
             TongNguonVon = "Năm 2020 tổng nguồn vốn tăng 417 tỷ (3,49%) so với 2019"
             NoPhaiTra = "Năm 2020 nợ phải trả tăng 874 tỷ (23,15%)"
             TSDH = "Năm 2020 giảm -147 tỷ (-2.094%) so với Tài sản dài hạn năm 2019"
@@ -280,7 +307,7 @@ class C1Page(tk.Tk):
             relief = "ridge")
         canvas.place(x = 0, y = 0)
 
-        background_img = PhotoImage(file = f"assets/img/Option/background.png")
+        background_img = PhotoImage(file = f"assets/img/C1/background.png")
         background = canvas.create_image(
             500, 302,
             image=background_img)
@@ -348,7 +375,7 @@ class C1Page(tk.Tk):
             relief = "flat")
 
         b3.place(
-            x = 493, y =508,
+            x = 493, y =528,
             width = 221,
             height = 50)
         
@@ -365,69 +392,191 @@ class C1Page(tk.Tk):
             relief = "flat")
 
         bt_nhanxet.place(
-            x = 230, y = 465,
+            x = 226, y = 438,
             width = 274,
-            height = 53)
+            height = 50)
 
-        def Namhientai_clicked():
-            namhientai('Data/DataFinal.csv')
-                # plt.style.use('bmh')
+        def DonGianOption1():
+            Option1('Data/DataFinal.csv')
+        
+        def PhucTapOption1():
+            Option1('Data/Data_new.csv')
 
-                # df = pd.read_csv('Controller/DataFinal.csv')
-                # x = df['TÀI SẢN']
-                # y = df['2019']
-
-                # #bar chart
-                # plt.xlabel('TÀI SẢN',fontsize=18)
-                # plt.xlabel('2019',fontsize=16)
-                # plt.bar(x,y)
-
-                # plt.show()
+        def ChooseChartOption1():
+            root = Tk()
+            screen = center_window_on_screen1(root)
+            data = "{}".format(screen)
+            root.title("chọn loại biểu đồ")
+            root.geometry(data)
+            Button(root, text='Đơn giản', command=DonGianOption1).pack(
+                ipadx=10,
+                ipady=10,
+                side='left',
+                padx=50
+            )
+            Button(root, text='Phức tạp', command=PhucTapOption1).pack(
+                ipadx=10,
+                ipady=10,
+                side='right',
+                padx=20
+            )
+            root.mainloop()
 
         Button_Namhientai = PhotoImage(file = f"assets/img/C1/Button_Namhientai.png")
         Bt_Namhientai = Button(
             image = Button_Namhientai,
             borderwidth = 0,
             highlightthickness = 0,
-            command = Namhientai_clicked,
+            command = ChooseChartOption1,
             relief = "flat")
 
         Bt_Namhientai.place(
-            x = 230, y = 139,
+            x = 226, y = 98,
             width = 274,
             height = 50)
 
-        def Namtruoc_clicked():
-            namtruoc('Data/DataFinal.csv')
+        def DonGianOption2():
+            Option2('Data/DataFinal.csv')
+        
+        def PhucTapOption2():
+            Option2('Data/Data_new.csv')
+
+        def ChooseChartOption2():
+            root = Tk()
+            screen = center_window_on_screen1(root)
+            data = "{}".format(screen)
+            root.title("chọn loại biểu đồ")
+            root.geometry(data)
+            Button(root, text='Đơn giản', command=DonGianOption2).pack(
+                ipadx=10,
+                ipady=10,
+                side='left',
+                padx=50
+            )
+            Button(root, text='Phức tạp', command=PhucTapOption2).pack(
+                ipadx=10,
+                ipady=10,
+                side='right',
+                padx=20
+            )
+            root.mainloop()
 
         Button_Namtruoc = PhotoImage(file = f"assets/img/C1/Button_Namtruoc.png")
         bt_namtruoc = Button(
             image = Button_Namtruoc,
             borderwidth = 0,
             highlightthickness = 0,
-            command = Namtruoc_clicked,
+            command = ChooseChartOption2,
             relief = "flat")
 
         bt_namtruoc.place(
-            x = 230, y = 232,
+            x = 226, y = 215,
             width = 274,
-            height = 53)
+            height = 50)
 
-        def Sosanh_clicked():
-            sosanh('Data/DataFinal.csv')
+        def DonGianOption3():
+            Option3('Data/DataFinal.csv')
+        
+        def PhucTapOption3():
+            Option3('Data/Data_new.csv')
+
+        def ChooseChartOption3():
+            root = Tk()
+            screen = center_window_on_screen1(root)
+            data = "{}".format(screen)
+            root.title("chọn loại biểu đồ")
+            root.geometry(data)
+            Button(root, text='Đơn giản', command=DonGianOption3).pack(
+                ipadx=10,
+                ipady=10,
+                side='left',
+                padx=50
+            )
+            Button(root, text='Phức tạp', command=PhucTapOption3).pack(
+                ipadx=10,
+                ipady=10,
+                side='right',
+                padx=20
+            )
+            root.mainloop()
 
         Button_Sosanh = PhotoImage(file = f"assets/img/C1/Button_Sosanh.png")
         bt_sosanh = Button(
             image = Button_Sosanh,
             borderwidth = 0,
             highlightthickness = 0,
-            command = Sosanh_clicked,
+            command = ChooseChartOption3,
             relief = "flat")
 
         bt_sosanh.place(
-            x = 230, y = 339,
+            x = 226, y = 331,
             width = 274,
-            height = 53)
+            height = 50)
+
+
+        def KhaNangThanhToan_clicked():
+            return
+
+        Button_KhaNangThanhToan = PhotoImage(file = f"assets/img/C1/Button_KhaNangThanhToan.png")
+        bt_KhaNangThanhToan = Button(
+            image = Button_KhaNangThanhToan,
+            borderwidth = 0,
+            highlightthickness = 0,
+            command = KhaNangThanhToan_clicked,
+            relief = "flat")
+
+        bt_KhaNangThanhToan.place(
+            x = 690, y = 98,
+            width = 274,
+            height = 50)
+        
+        def HoatDong_clicked():
+            return
+
+        Button_HoatDong = PhotoImage(file = f"assets/img/C1/Button_HoatDong.png")
+        bt_HoatDong = Button(
+            image = Button_HoatDong,
+            borderwidth = 0,
+            highlightthickness = 0,
+            command = HoatDong_clicked,
+            relief = "flat")
+
+        bt_HoatDong.place(
+            x = 690, y = 215,
+            width = 274,
+            height = 50)
+        
+        def CoCauTaiChinh_clicked():
+            return
+
+        Button_CoCauTaiChinh = PhotoImage(file = f"assets/img/C1/Button_CoCauTaiChinh.png")
+        bt_CoCauTaiChinh = Button(
+            image = Button_CoCauTaiChinh,
+            borderwidth = 0,
+            highlightthickness = 0,
+            command = CoCauTaiChinh_clicked,
+            relief = "flat")
+
+        bt_CoCauTaiChinh.place(
+            x = 690, y = 331,
+            width = 274,
+            height = 50)
+
+        def Doanhloi_clicked():
+            return
+
+        Button_DoanhLoi = PhotoImage(file = f"assets/img/C1/Button_Doanhloi.png")
+        bt_DoanhLoi = Button(
+            image = Button_DoanhLoi,
+            borderwidth = 0,
+            highlightthickness = 0,
+            command = Doanhloi_clicked,
+            relief = "flat")
+
+        bt_DoanhLoi.place(
+            x = 690, y = 438,
+            width = 274,
+            height = 50)
 
         self.resizable(False, False)
         self.mainloop()

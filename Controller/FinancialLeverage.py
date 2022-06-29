@@ -1,4 +1,5 @@
 from cProfile import label
+from datetime import date
 from tkinter import *
 import tkinter as tk
 import matplotlib
@@ -8,53 +9,56 @@ import numpy as np
 # %matplotlib inline
 from matplotlib import style
 
-def namhientai(self):
-    # plt.style.use('bmh')
+def thisyear():
+    YEAR = date.today()
+    return YEAR.year
+def lastyear():
+    YEAR = date.today()
+    result = YEAR.year
+    return result -1
+
+def Option1(self):
 
     df = pd.read_csv(self)
     df.head()
 
     Tsan = df['TÀI SẢN']
-    This_year = df['2020']
+    This_year = df['ThisYear']
 
     fig = plt.figure(figsize=(15,10))
-    plt.bar(Tsan,This_year,color ='blue')
+    if(self == "Data/DataFinal.csv"):
+        plt.bar(Tsan,This_year,color ='blue')
+    else:
+        plt.barh(Tsan,This_year,color ='blue')
     plt.xlabel('Tsan')
-    plt.ylabel('2020')
+    plt.ylabel(thisyear())
     plt.title('tittle')
     plt.show()
 
-    # x = df['TÀI SẢN']
-    # y = df['2020']
 
-    # #bar chart
-    # plt.xlabel('TÀI SẢN',fontsize=18)
-    # plt.xlabel('2020',fontsize=16)
-    # plt.bar(x,y)
-
-    # plt.show()
-
-
-def namtruoc(self):
+def Option2(self):
     df = pd.read_csv(self)
     df.head()
 
     Tsan = df['TÀI SẢN']
-    last_year = df['2019']
+    last_year = df['LastYear']
 
     fig = plt.figure(figsize=(15,10))
-    plt.bar(Tsan,last_year,color ='red')
+    if(self == "Data/DataFinal.csv"):
+        plt.bar(Tsan,last_year,color ='red')
+    else:
+        plt.barh(Tsan,last_year,color ='red')
     plt.xlabel('Tsan')
-    plt.ylabel('2019')
+    plt.ylabel(lastyear())
     plt.title('tittle')
     plt.show()
 
-def sosanh(self):
+def Option3(self):
     df = pd.read_csv(self)
     df.head()
 
-    this_year = df['2020']
-    last_year = df['2019']
+    this_year = df['ThisYear']
+    last_year = df['LastYear']
     Tsan = df['TÀI SẢN']
 
     xpos = np.arange(len(Tsan))
@@ -63,14 +67,53 @@ def sosanh(self):
     style.use('ggplot')
     plt.figure(figsize=(10,7))
     barWidth = 0.2
-    plt.bar(xpos,this_year, color ='blue',width= barWidth, label= 'this year')
-    plt.bar(xpos,last_year, color ='red',width= barWidth, label= 'last year')
-    plt.xlabel('xla')
-    plt.ylabel('yla')
-    plt.legend()
-    plt.xticks(xpos,('Tài sản ngắn hạn','Tài sản dài hạn','Tổng cộng tài sản','Nợ phải trả','Tổng cộng nguồn vốn'))
     plt.title('tittle')
+    if(self == "Data/DataFinal.csv"):
+        plt.bar(xpos,this_year, color ='blue',width= barWidth, label= 'this year')
+        plt.bar(xpos,last_year, color ='red',width= barWidth, label= 'last year')
+        plt.xlabel('xla')
+        plt.ylabel('yla')
+        plt.legend()
+        plt.xticks(xpos,('Tài sản ngắn hạn','Tài sản dài hạn','Tổng cộng tài sản','Nợ phải trả','Tổng cộng nguồn vốn'))
+    else:
+        plt.barh(xpos,this_year, color ='blue', label= 'this year')
+        plt.barh(xpos,last_year, color ='red', label= 'last year')
+        plt.yticks(xpos,('Tiền và các khoản tương đương tiền','Các khoản đầu tư tài chính ngắn hạn','Các khoản phải thu','Hàng tồn kho','Tài sản ngắn hạn khác','Phải thu dài hạn','Tài sản cố định','Bất động sản đầu tư','Tài sản dở dang dài hạn','Đầu tư tài chính dài hạn','Tài sản dài hạn khác','Nợ ngắn hạn','Nợ dài hạn','Vốn chủ sở hữu'))
+        plt.xlabel('xla')
+        plt.ylabel('yla')
+        plt.legend()
     plt.show()
+
+
+
+def Option4(self):
+
+
+
+    
+
+# def sosanh(self):
+#     df = pd.read_csv(self)
+#     df.head()
+
+#     this_year = df['2020']
+#     last_year = df['2019']
+#     Tsan = df['TÀI SẢN']
+
+#     xpos = np.arange(len(Tsan))
+#     xpos
+
+#     style.use('ggplot')
+#     plt.figure(figsize=(10,7))
+#     barWidth = 0.2
+#     plt.bar(xpos,this_year, color ='blue',width= barWidth, label= 'this year')
+#     plt.bar(xpos,last_year, color ='red',width= barWidth, label= 'last year')
+#     plt.xlabel('xla')
+#     plt.ylabel('yla')
+#     plt.legend()
+#     plt.xticks(xpos,('Tài sản ngắn hạn','Tài sản dài hạn','Tổng cộng tài sản','Nợ phải trả','Tổng cộng nguồn vốn'))
+    
+#     plt.show()
 
 
 
