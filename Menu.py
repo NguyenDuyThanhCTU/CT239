@@ -234,22 +234,54 @@ class Nhanxet(tk.Tk):
             file = open("Data/DataFinal.csv",mode="r",encoding="utf-8-sig")
 
             header = file.readline()
+
             row = file.readline()
+            row_list = row.split(",")
+            c1 = float(row_list[3])
+            c2 = float(row_list[4])
+            if(c1 >0):
+                TSNN = "Tài sản ngắn hạn của năm hiện tại tăng {}(tỷ) tương đương ({}%) so với năm trước đó".format(c1,c2)
+            else:
+                TSNN = "Tài sản ngắn hạn của năm hiện tại giảm {}(tỷ) tương đương ({}%) so với năm trước đó".format(c1,c2)
+            
+            row1 = file.readline()
+            row_list1 = row1.split(",")
+            c3 = float(row_list1[3])
+            c4 = float(row_list1[4])
+            if(c3 >0):
+                TSDH = "Tài sản dài hạn năm hiện tại tăng {}(tỷ) tương đương ({}%) so với với năm trước đó".format(c3,c4)
+            else:
+                TSDH = "Tài sản dài hạn năm hiện tại giảm {}(tỷ) tương đương ({}%) so với với năm trước đó".format(c3,c4)        
 
-            while row != "":
-                row_list = row.split(",")
-                c1 = float(row_list[3])
-                c2 = float(row_list[4])
+            row2 = file.readline() 
+            row_list2 = row2.split(",")
+            c5 = float(row_list2[3])
+            c6 = float(row_list2[4])
+            if(c5 >0):
+                TongCongtaisan = "Tổng cộng tài sản năm hiện tại tăng {}(tỷ) ương đương ({}%) so với với năm trước đó".format(c5,c6)
+            else:
+                TongCongtaisan = "Tổng cộng tài sản năm hiện tại giảm {}(tỷ) ương đương ({}%) so với với năm trước đó".format(c5,c6)
 
-                row = file.readline()
+            row3 = file.readline()
+            row_list3 = row3.split(",")
+            c7 = float(row_list3[3])
+            c8 = float(row_list3[4])
+            if(c7 >0):
+                NoPhaiTra = "Nợ phải trả năm hiện tại tăng {}(tỷ) tương đương ({}%) so với với năm trước đó".format(c7,c8)
+            else:
+                NoPhaiTra = "Nợ phải trả năm hiện tại giảm {}(tỷ) tương đương ({}%) so với với năm trước đó".format(c7,c8)
+
+            row4 = file.readline()
+            row_list4 = row4.split(",")
+            c9 = float(row_list4[3])
+            c10 = float(row_list4[4])
+            if(c9 >0):
+                TongNguonVon = "Tổng nguồn vốn năm hiện tại tăng {}(tỷ) tương đương ({}%) so với với năm trước đó".format(c9,c10)
+            else:
+                TongNguonVon = "Tổng nguồn vốn năm hiện tại giảm {}(tỷ) tương đương ({}%) so với với năm trước đó".format(c9,c10)
 
             file.close()
-            TSNN = "Năm 2020 tăng 564 tỷ (11,48%) so với Tài sản ngắn hạn năm 2019"
-            TongCongtaisan = "Năm 2020 tăng 417 tỷ tương đương (3,49%) so với với năm 2019"
-            TongNguonVon = "Năm 2020 tổng nguồn vốn tăng 417 tỷ (3,49%) so với 2019"
-            NoPhaiTra = "Năm 2020 nợ phải trả tăng 874 tỷ (23,15%)"
-            TSDH = "Năm 2020 giảm -147 tỷ (-2.094%) so với Tài sản dài hạn năm 2019"
-
+            
             label1.configure(text=TSNN+"\n"+TSDH+"\n"+ TongCongtaisan+"\n"+NoPhaiTra+"\n"+TongNguonVon)
 
         Button_thisyear = PhotoImage(file = f"assets/img/Nhanxet/Button_thisyear.png")
@@ -267,7 +299,38 @@ class Nhanxet(tk.Tk):
             height = 50)
 
         def lastyear_clicked():
-            return
+            file = open("Data/DataFinal.csv",mode="r",encoding="utf-8-sig")
+
+            header = file.readline()
+
+            row = file.readline()
+            row_list = row.split(",")
+            c1 = float(row_list[2])
+            TSNN = "Tài sản ngắn hạn của năm trước đó là: {}(tỷ)".format(c1)
+            
+            row1 = file.readline()
+            row_list1 = row1.split(",")
+            c2 = float(row_list1[2])
+            TSDH = "Tài sản dài hạn năm của năm trước đó là: {}(tỷ)".format(c2)      
+
+            row2 = file.readline() 
+            row_list2 = row2.split(",")
+            c3 = float(row_list2[2])
+            TongCongtaisan = "Tổng cộng tài sản của năm trước đó là: {}(tỷ)".format(c3)
+
+            row3 = file.readline()
+            row_list3 = row3.split(",")
+            c4 = float(row_list3[2])
+            NoPhaiTra = "Nợ phải trả của năm trước đó là: {}(tỷ)".format(c4)
+
+            row4 = file.readline()
+            row_list4 = row4.split(",")
+            c5 = float(row_list4[2])
+            TongNguonVon = "Tổng nguồn vốn của năm trước đó là: {}(tỷ)".format(c5)
+           
+            file.close()
+            
+            label1.configure(text=TSNN+"\n"+TSDH+"\n"+ TongCongtaisan+"\n"+NoPhaiTra+"\n"+TongNguonVon)
 
         Button_lastyear = PhotoImage(file = f"assets/img/Nhanxet/Button_lastyear.png")
         bt_lastyear = Button(
