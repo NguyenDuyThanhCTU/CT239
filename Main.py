@@ -1,12 +1,11 @@
 
-from sys import flags
 from tkinter import *
 import tkinter as tk
 from tkinter.messagebox import showwarning
-from PIL import Image, ImageTk
 import Controller.DAO as Conn
-# import Menu
+from Menu import HomePage
 import User_ID 
+import Main
 
 class main(tk.Tk):
     def __init__(self):
@@ -78,7 +77,7 @@ class main(tk.Tk):
                         flag = False
                 if flag == False:
                     self.destroy()
-                    move = Menu.menu()   
+                    move = HomePage()   
                 else:
                     showwarning(title='Error',message='ID không hợp lệ')
                             # 

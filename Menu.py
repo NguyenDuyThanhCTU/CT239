@@ -6,26 +6,14 @@ from tkinter.messagebox import showwarning
 from tkinter.messagebox import *
 from PIL import Image, ImageTk
 from numpy import size
+from pip import main
 import Controller.DAO as Conn
 # import Menu
 # import User_ID 
 from Controller.FinancialLeverage import * 
 from Controller.fileIO import *
+from Controller.Predictions import *
 import matplotlib.pyplot as plt
-import pandas as pd
-
-# def change_to_Home(self):
-#     self.forget()
-#     # them pack sau
-#     go = HomePage()
-
-# def change_to_C1(self):
-#     self.forget()
-#     go = C1Page()
-
-# def change_to_C2(self):
-#     self.forget()
-#     go = C2Page()
 
 
 
@@ -60,7 +48,7 @@ def center_window_on_screen1(root):
 
 
 
-
+##########################################################################################################
 class HomePage(tk.Tk):
     def __init__(self):
         super().__init__()
@@ -137,40 +125,13 @@ class HomePage(tk.Tk):
             x = -3, y = 328,
             width = 207,
             height = 64)
-
-        def Date_clicked():
-            print("Button Clicked")
-
-        img_Date = PhotoImage(file = f"assets/img/Menu/Button_Date.png")
-        button_Date = Button(
-            image = img_Date,
-            borderwidth=0,
-            highlightthickness=0,
-            command=Date_clicked,
-            relief = "flat"
-        )
-
-        button_Date.place(
-            x = 939, y=538,
-            width=40,
-            height=40
-        )
-        img_ID = PhotoImage(file = f"assets/img/Menu/1.png")
-        label_ID = Label(
-            image=img_ID,
-            highlightthickness=0,
-        )
-
-        label_ID.place(
-            x=650, y= 89,
-            width=170,
-            height=41
-        )
         
-
         self.resizable(False, False)
         self.mainloop()
+    
 
+
+##########################################################################################################
 class Nhanxet(tk.Tk):
     def __init__(self):
         super().__init__()
@@ -348,6 +309,8 @@ class Nhanxet(tk.Tk):
         self.resizable(False, False)
         self.mainloop()
 
+
+##########################################################################################################
 class C1Page(tk.Tk):
     def __init__(self):
         super().__init__()
@@ -577,15 +540,38 @@ class C1Page(tk.Tk):
             height = 50)
 
 
-        def KhaNangThanhToan_clicked():
-            return
+        def ThanhToanNo():
+            Option5('Data/DataFinal.csv','Data/Data_new.csv',1)
 
+        def ThanhKhoan():
+            Option5('Data/DataFinal.csv','Data/Data_new.csv',2)
+
+        def ChooseChartOption5():
+            root = Tk()
+            screen = center_window_on_screen1(root)
+            data = "{}".format(screen)
+            root.title("chọn loại biểu đồ")
+            root.geometry(data)
+            background = "#FFFFFF"
+            Button(root, text='thanh toán nợ ', command=ThanhToanNo).pack(
+                ipadx=10,
+                ipady=10,
+                side='left',
+                padx=20
+            )
+            Button(root, text='thanh khoảng', command=ThanhKhoan).pack(
+                ipadx=10,
+                ipady=10,
+                side='right',
+                padx=20
+            )
+            root.mainloop()
         Button_KhaNangThanhToan = PhotoImage(file = f"assets/img/C1/Button_KhaNangThanhToan.png")
         bt_KhaNangThanhToan = Button(
             image = Button_KhaNangThanhToan,
             borderwidth = 0,
             highlightthickness = 0,
-            command = KhaNangThanhToan_clicked,
+            command = ChooseChartOption5,
             relief = "flat")
 
         bt_KhaNangThanhToan.place(
@@ -594,7 +580,7 @@ class C1Page(tk.Tk):
             height = 50)
         
         def HoatDong_clicked():
-            return
+            Option6()
 
         Button_HoatDong = PhotoImage(file = f"assets/img/C1/Button_HoatDong.png")
         bt_HoatDong = Button(
@@ -610,7 +596,7 @@ class C1Page(tk.Tk):
             height = 50)
         
         def CoCauTaiChinh_clicked():
-            return
+            Option7()
 
         Button_CoCauTaiChinh = PhotoImage(file = f"assets/img/C1/Button_CoCauTaiChinh.png")
         bt_CoCauTaiChinh = Button(
@@ -626,7 +612,7 @@ class C1Page(tk.Tk):
             height = 50)
 
         def Doanhloi_clicked():
-            return
+            Option8()
 
         Button_DoanhLoi = PhotoImage(file = f"assets/img/C1/Button_Doanhloi.png")
         bt_DoanhLoi = Button(
@@ -645,6 +631,7 @@ class C1Page(tk.Tk):
         self.mainloop()
 
 
+##########################################################################################################
 class C2Page(tk.Tk):
     def __init__(self):
         super().__init__()
@@ -667,7 +654,7 @@ class C2Page(tk.Tk):
             relief = "ridge")
         canvas.place(x = 0, y = 0)
 
-        background_img = PhotoImage(file = f"assets/img/Option/background.png")
+        background_img = PhotoImage(file = f"assets/img/C2/background.png")
         background = canvas.create_image(
             500, 302,
             image=background_img)
@@ -720,10 +707,43 @@ class C2Page(tk.Tk):
             x = -3, y = 328,
             width = 207,
             height = 64)
+        
+        def DuDoan_clicked():
+            DuDoan('Data/DataFinal.csv')
+
+        Button_DuDoan = PhotoImage(file = f"assets/img/C2/Button_DuDoan.png")
+        bt_DuDoan = Button(
+            image = Button_DuDoan,
+            borderwidth = 0,
+            highlightthickness = 0,
+            command = DuDoan_clicked,
+            relief = "flat")
+
+        bt_DuDoan.place(
+            x = 667+30, y =336,
+            width = 200,
+            height = 50)
+        
+        def KiemTra_clicked():
+            Option1('Data/DataFinal.csv')
+
+        Button_KiemTra = PhotoImage(file = f"assets/img/C2/Button_KiemTra.png")
+        bt_KiemTra = Button(
+            image = Button_KiemTra,
+            borderwidth = 0,
+            highlightthickness = 0,
+            command = KiemTra_clicked,
+            relief = "flat")
+
+        bt_KiemTra.place(
+            x = 240+30, y = 336,
+            width = 200,
+            height = 50)
 
         self.resizable(False, False)
         self.mainloop()
 
+##########################################################################################################
 class Upload(tk.Tk):
     def __init__(self):
         super().__init__()
@@ -813,8 +833,6 @@ class Upload(tk.Tk):
         self.mainloop()
 
 
-if __name__ == "__main__":
-    start = HomePage()
 
     
 
