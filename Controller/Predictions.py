@@ -1,9 +1,4 @@
-from cProfile import label
-from datetime import date
 from tkinter import *
-import tkinter as tk
-from turtle import color
-import matplotlib
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np

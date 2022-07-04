@@ -4,9 +4,6 @@ from tkinter import *
 import tkinter as tk
 from tkinter.messagebox import showwarning
 from tkinter.messagebox import *
-from PIL import Image, ImageTk
-from numpy import size
-from pip import main
 import Controller.DAO as Conn
 # import Menu
 # import User_ID 

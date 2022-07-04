@@ -1,5 +1,3 @@
-from lib2to3.pgen2.driver import Driver
-from numpy import less
 import pyodbc 
 
 def connectDatabase():

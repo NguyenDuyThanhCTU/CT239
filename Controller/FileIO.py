@@ -1,4 +1,3 @@
-from numpy import number
 import array as arr
 
 def createNewExcelFile(self):
