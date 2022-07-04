@@ -180,9 +180,6 @@ class Fogot(tk.Tk):
         super().__init__()
         self.title("Fogot ID")
 
-        self.iconbitmap('assets/img/logo/logo.ico')
-
-        self.title("Sign Up")
 
         self.iconbitmap('assets/img/logo/logo.ico')
 

@@ -68,20 +68,20 @@ def Option3(self):
     style.use('ggplot')
     plt.figure(figsize=(10,7))
     barWidth = 0.2
-    plt.title('tittle')
+    plt.title('BIỂU ĐỒ SO SÁNH SỰ CHÊNH LỆCH GIÁ TRỊ CỦA TÀI SẢN')
     if(self == "Data/DataFinal.csv"):
         plt.bar(xpos,this_year, color ='blue',width= barWidth, label= 'this year')
         plt.bar(xpos,last_year, color ='red',width= barWidth, label= 'last year')
-        plt.xlabel('xla')
-        plt.ylabel('yla')
+        plt.xlabel('Tài sản')
+        plt.ylabel('')
         plt.legend()
         plt.xticks(xpos,('Tài sản ngắn hạn','Tài sản dài hạn','Tổng cộng tài sản','Nợ phải trả','Tổng cộng nguồn vốn'))
     else:
         plt.barh(xpos,this_year, color ='blue', label= 'this year')
         plt.barh(xpos,last_year, color ='red', label= 'last year')
         plt.yticks(xpos,('Tiền và các khoản tương đương tiền','Các khoản đầu tư tài chính ngắn hạn','Các khoản phải thu','Hàng tồn kho','Tài sản ngắn hạn khác','Phải thu dài hạn','Tài sản cố định','Bất động sản đầu tư','Tài sản dở dang dài hạn','Đầu tư tài chính dài hạn','Tài sản dài hạn khác','Nợ ngắn hạn','Nợ dài hạn','Vốn chủ sở hữu'))
-        plt.xlabel('xla')
-        plt.ylabel('yla')
+        plt.xlabel('')
+        plt.ylabel('Tài sản')
         plt.legend()
     plt.show()
 

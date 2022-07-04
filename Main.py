@@ -127,7 +127,7 @@ class main(tk.Tk):
         Bt_Fogot.place(
             x = 850, y = 510,
             width = 96,
-            height = 16)
+            height = 13)
 
         self.resizable(False, False)
         self.mainloop()

@@ -125,6 +125,22 @@ class HomePage(tk.Tk):
             x = -3, y = 328,
             width = 207,
             height = 64)
+        def Upload_clicked():
+            self.destroy()
+            go = Upload()
+
+        img3 = PhotoImage(file = f"assets/img/C1/Button_Upload.png")
+        b3 = Button(
+            image = img3,
+            borderwidth = 0,
+            highlightthickness = 0,
+            command = Upload_clicked,
+            relief = "flat")
+
+        b3.place(
+            x = 493, y =528,
+            width = 221,
+            height = 50)
         
         self.resizable(False, False)
         self.mainloop()
@@ -388,22 +404,7 @@ class C1Page(tk.Tk):
             width = 207,
             height = 64)
         
-        def Upload_clicked():
-            self.destroy()
-            go = Upload()
 
-        img3 = PhotoImage(file = f"assets/img/C1/Button_Upload.png")
-        b3 = Button(
-            image = img3,
-            borderwidth = 0,
-            highlightthickness = 0,
-            command = Upload_clicked,
-            relief = "flat")
-
-        b3.place(
-            x = 493, y =528,
-            width = 221,
-            height = 50)
         
         def Nhanxet_clicked():
             self.destroy()
@@ -748,7 +749,7 @@ class Upload(tk.Tk):
     def __init__(self):
         super().__init__()
 
-        self.title("Menu")
+        self.title("Upload File")
         self.iconbitmap('assets/img/logo/logo.ico')
 
         screen = center_window_on_screen(self)
